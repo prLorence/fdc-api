@@ -22,7 +22,7 @@ type Cb struct {
 // ConnectDs connects to a datastore, e.g. Couchbase, MongoDb, etc.
 func (ds *Cb) ConnectDs(cs fdc.Config) error {
 	var err error
-	cluster, err := gocb.Connect("couchbase://" + cs.CouchDb.URL)
+	cluster, err := gocb.Connect("http://" + cs.CouchDb.URL)
 	if err != nil {
 		log.Fatalln("Cannot connect to cluster ", err)
 	}
