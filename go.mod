@@ -1,4 +1,4 @@
-module github.com/littlebunch/fdc-api
+// module github.com/prLorence/fdc-api
 
 go 1.12
 
