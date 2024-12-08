@@ -1,6 +1,6 @@
 package main
 
-//test gin request handlers
+// test gin request handlers
 import (
 	"encoding/json"
 	"fmt"
@@ -11,7 +11,7 @@ import (
 	"testing"
 
 	"github.com/gin-gonic/gin"
-	fdc "github.com/littlebunch/fdc-api/model"
+	fdc "github.com/prLorence/fdc-api/model"
 )
 
 type rp struct {
@@ -26,7 +26,6 @@ func TestFoodGetHandler(t *testing.T) {
 		} else {
 			c.JSON(http.StatusBadRequest, gin.H{"status": http.StatusBadRequest, "data": nil})
 		}
-
 	}
 	var parsed map[string]interface{}
 	router := gin.New()
@@ -42,6 +41,7 @@ func TestFoodGetHandler(t *testing.T) {
 		t.Errorf("Expecting %d status is %d", http.StatusOK, parsed["status"])
 	}
 }
+
 func TestNutrientsGetHandler(t *testing.T) {
 	handler := func(c *gin.Context) {
 		_nutrients := `{[{"nutrient":"Test Nutrient1"},{"nutrient":"Test Nutrient2"}]}`
@@ -61,6 +61,7 @@ func TestNutrientsGetHandler(t *testing.T) {
 		t.Errorf("Expecting %d status is %d", http.StatusOK, parsed["status"])
 	}
 }
+
 func TestFoodsBrowseGetHandler(t *testing.T) {
 	handler := func(c *gin.Context) {
 		page, err := strconv.ParseInt(c.Query("page"), 10, 32)
@@ -87,6 +88,7 @@ func TestFoodsBrowseGetHandler(t *testing.T) {
 		t.Errorf("Expecting %d status is %d %s", http.StatusOK, parsed["status"], parsed["message"])
 	}
 }
+
 func TestFoodsSearchPostHandler(t *testing.T) {
 	handler := func(c *gin.Context) {
 		var sr fdc.SearchRequest

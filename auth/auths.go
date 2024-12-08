@@ -9,12 +9,12 @@ import (
 
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
-	"github.com/littlebunch/fdc-api/ds"
-	fdc "github.com/littlebunch/fdc-api/model"
+	"github.com/prLorence/fdc-api/ds"
+	fdc "github.com/prLorence/fdc-api/model"
 	"golang.org/x/crypto/bcrypt"
 )
 
-//User is basic authentication information
+// User is basic authentication information
 type User struct {
 	ID       string `json:"_id"`
 	Name     string `json:"name" binding:"required"`
@@ -48,7 +48,7 @@ func (r *RoleType) ToRole(t string) RoleType {
 	}
 }
 
-//ToString converts RoleType to string
+// ToString converts RoleType to string
 func (r *RoleType) ToString(rt RoleType) string {
 	switch rt {
 	case ADMIN:
@@ -64,7 +64,6 @@ var identityKey = "role"
 
 // AuthMiddleware initializes our jwt components
 func (u *User) AuthMiddleware(bucket string, d ds.DataSource) *jwt.GinJWTMiddleware {
-
 	a, _ := jwt.New(&jwt.GinJWTMiddleware{
 		Realm:       "bfpd zone",
 		Key:         []byte("secret key"),
@@ -93,7 +92,7 @@ func (u *User) AuthMiddleware(bucket string, d ds.DataSource) *jwt.GinJWTMiddlew
 		// load user's roles into a []string and put into the claim
 		PayloadFunc: func(data interface{}) jwt.MapClaims {
 			if v, ok := data.(User); ok {
-				//u, _ = findUser(v.ID, d)
+				// u, _ = findUser(v.ID, d)
 				return jwt.MapClaims{
 					identityKey: v.Role,
 				}
@@ -113,7 +112,6 @@ func (u *User) AuthMiddleware(bucket string, d ds.DataSource) *jwt.GinJWTMiddlew
 				return true
 			}
 			return false
-
 		},
 		Unauthorized: func(c *gin.Context, code int, message string) {
 			c.JSON(code, gin.H{
@@ -184,6 +182,7 @@ func CheckPasswordHash(password, hash string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
 	return err == nil
 }
+
 func findUser(name string, dc ds.DataSource) (User, bool) {
 	var (
 		u  User

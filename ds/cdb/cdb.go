@@ -8,7 +8,7 @@ import (
 
 	kivik "github.com/flimzy/kivik"
 	_ "github.com/go-kivik/couchdb"
-	fdc "github.com/littlebunch/fdc-api/model"
+	fdc "github.com/prLorence/fdc-api/model"
 	"gopkg.in/couchbase/gocb.v1"
 )
 

@@ -13,10 +13,10 @@ import (
 
 	"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
-	auth "github.com/littlebunch/fdc-api/auth"
-	"github.com/littlebunch/fdc-api/ds"
-	"github.com/littlebunch/fdc-api/ds/cb"
-	fdc "github.com/littlebunch/fdc-api/model"
+	auth "github.com/prLorence/fdc-api/auth"
+	"github.com/prLorence/fdc-api/ds"
+	"github.com/prLorence/fdc-api/ds/cb"
+	fdc "github.com/prLorence/fdc-api/model"
 )
 
 const (
@@ -41,9 +41,7 @@ var (
 
 // process cli flags; build the config and init an Mongo client and a logger
 func init() {
-	var (
-		lfile *os.File
-	)
+	var lfile *os.File
 	lfile, err = os.OpenFile(*l, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatalln("Failed to open log file", *l, ":", err)
@@ -53,7 +51,6 @@ func init() {
 }
 
 func main() {
-
 	var cb cb.Cb
 	flag.Parse()
 	// get configuration
@@ -73,7 +70,7 @@ func main() {
 		}
 	}
 	authMiddleware := u.AuthMiddleware(cs.CouchDb.Bucket, dc)
-	//router := gin.Default()
+	// router := gin.Default()
 	router := gin.New()
 	router.Use(gin.Logger())
 	router.Use(gin.Recovery())
@@ -104,5 +101,4 @@ func main() {
 		c.HTML(http.StatusOK, "apiDoc.html", nil)
 	})
 	endless.ListenAndServe(":"+*p, router)
-
 }

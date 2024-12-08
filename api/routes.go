@@ -12,8 +12,8 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	auth "github.com/littlebunch/fdc-api/auth"
-	fdc "github.com/littlebunch/fdc-api/model"
+	auth "github.com/prLorence/fdc-api/auth"
+	fdc "github.com/prLorence/fdc-api/model"
 )
 
 var isUpc = regexp.MustCompile(`^[0-9]+$`)
@@ -35,7 +35,6 @@ func countsGet(c *gin.Context) {
 		c.JSON(http.StatusOK, counts[0])
 	} else {
 		errorout(c, http.StatusNotFound, gin.H{"status": http.StatusNotFound, "message": "No counts found!"})
-
 	}
 	return
 }
@@ -84,7 +83,6 @@ func foodFdcIds(c *gin.Context) {
 	c.JSON(http.StatusOK, results)
 
 	return
-
 }
 
 // returns a dictionary list which can be nutrients (NUT), derivations (DERV), food categories (FGGPC)
@@ -153,7 +151,6 @@ func nutrientFdcID(c *gin.Context) {
 		qids, _ := buildIDList(nids)
 		q = fmt.Sprintf("SELECT fdcId,upc,portion,portionValue as valuePerPortion,foodDescription,company,category,valuePer100UnitServing,unit,nutrientNumber,nutrientName from %s as nutrient WHERE type=\"%s\" AND meta(nutrient).id in %s", cs.CouchDb.Bucket, dt.ToString(fdc.NUTDATA), qids)
 	} else {
-
 		q = fmt.Sprintf("SELECT fdcId,upc,portion,portionValue as valuePerPortion,foodDescription,company,category,valuePer100UnitServing,unit,nutrientNumber,nutrientName from %s as nutrient WHERE type=\"%s\" AND fdcId = \"%s\"", cs.CouchDb.Bucket, dt.ToString(fdc.NUTDATA), q)
 	}
 	dc.Query(q, &nd)
@@ -212,9 +209,9 @@ func nutrientFdcIDs(c *gin.Context) {
 	// convert each row to the types NutrientFoodBrowse and NutrientFoodBrowseItem
 	for i := range nd {
 		b, _ := json.Marshal(nd[i])
-		//get NutrientFoodBrowse nf
+		// get NutrientFoodBrowse nf
 		json.Unmarshal(b, &nf)
-		//get the NutrientFoodBrowseItem nfbi
+		// get the NutrientFoodBrowseItem nfbi
 		nfbi = fdc.NutrientFoodBrowseItem{}
 		json.Unmarshal(b, &nfbi)
 		if nf.FdcID != nfb.FdcID {
@@ -293,7 +290,6 @@ func foodsBrowse(c *gin.Context) {
 		} else {
 			where += fmt.Sprintf(" AND foodGroup.description=\"%s\"", fg)
 		}
-
 	}
 	if source != "" {
 		where = where + sourceFilter(source)
@@ -514,9 +510,7 @@ func userAdd(c *gin.Context) {
 
 // Delete a user
 func userDelete(c *gin.Context) {
-	var (
-		dt fdc.DocType
-	)
+	var dt fdc.DocType
 
 	id := c.Param("id")
 	if id == "" {
@@ -566,6 +560,7 @@ func errorout(c *gin.Context, status int, data gin.H) {
 		c.JSON(status, data)
 	}
 }
+
 func sourceFilter(s string) string {
 	w := ""
 	if s != "" {
@@ -577,6 +572,7 @@ func sourceFilter(s string) string {
 	}
 	return w
 }
+
 func sortOrder(o string) (string, error) {
 	order := o
 	if order == "" {

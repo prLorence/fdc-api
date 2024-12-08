@@ -3,7 +3,7 @@
 package ds
 
 import (
-	fdc "github.com/littlebunch/fdc-api/model"
+	fdc "github.com/prLorence/fdc-api/model"
 	gocb "gopkg.in/couchbase/gocb.v1"
 )
 

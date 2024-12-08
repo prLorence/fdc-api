@@ -7,8 +7,8 @@ import (
 	"log"
 	"strings"
 
-	"github.com/littlebunch/fdc-api/auth"
-	fdc "github.com/littlebunch/fdc-api/model"
+	"github.com/prLorence/fdc-api/auth"
+	fdc "github.com/prLorence/fdc-api/model"
 
 	gocb "gopkg.in/couchbase/gocb.v1"
 	"gopkg.in/couchbase/gocb.v1/cbft"
@@ -138,7 +138,6 @@ func (ds *Cb) Search(sr fdc.SearchRequest, foods *[]interface{}) (int, error) {
 	f := fdc.FoodMeta{}
 	for _, r := range result.Hits() {
 		jrow, err := json.Marshal(&r.Fields)
-
 		if err != nil {
 			return 0, err
 		}
@@ -174,10 +173,8 @@ func (ds *Cb) NutrientReport(bucket string, nr fdc.NutrientReportRequest, nutrie
 
 // Update updates an existing document in the datastore using Upsert
 func (ds *Cb) Update(id string, r interface{}) error {
-
 	_, err := ds.Conn.Upsert(id, r, 0)
 	return err
-
 }
 
 // Remove removes a document in the datastore
@@ -198,14 +195,11 @@ func (ds *Cb) Bulk(items *[]fdc.NutrientData) error {
 		v = append(v, &gocb.InsertOp{Key: r.ID, Value: r})
 	}
 	return ds.Conn.Do(v)
-
 }
 
 // BulkInsert uses gocb library to insert a list of items defined in BulkOp struct
 func (ds *Cb) BulkInsert(items []gocb.BulkOp) error {
-
 	return ds.Conn.Do(items)
-
 }
 
 // Query performs an arbitrary but well-formed query

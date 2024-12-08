@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	fdc "github.com/littlebunch/fdc-api/model"
+	fdc "github.com/prLorence/fdc-api/model"
 	"gopkg.in/yaml.v2"
 )
 
@@ -30,8 +30,8 @@ func TestConfig(t *testing.T) {
 		t.Errorf(msg)
 	}
 }
-func TestEnvConfig(t *testing.T) {
 
+func TestEnvConfig(t *testing.T) {
 	os.Setenv("TEST_COUCHBASE_URL", "localhost")
 	os.Setenv("TEST_COUCHBASE_BUCKET", "foods")
 	os.Setenv("TEST_COUCHBASE_FTSINDEX", "fd_foods")
