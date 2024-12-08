@@ -99,7 +99,7 @@ type NutrientData struct {
 	PortionValue float64     `json:"portionValue,omitempty"`
 	Unit         string      `json:"unit"  binding:"required"`
 	Derivation   *Derivation `json:"derivation,omitempty"`
-	Nutrientno   int         `json:"nutrientNumber"`
+	Nutrientno   float64     `json:"nutrientNumber"`
 	Nutrient     string      `json:"nutrientName"`
 	Datapoints   int         `json:"datapoints,omitempty"`
 	Min          float32     `json:"min,omitempty"`
